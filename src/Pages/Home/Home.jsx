@@ -4,8 +4,11 @@ import "./Home.css"
 import Showvideogrid from '../../Component/Showvideogrid/Showvideogrid'
 import vid from "../../Component/Video/vid.mp4"
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+
 const Home = () => {
-  const vids=useSelector(state=>state.videoreducer)?.data?.filter(q=>q).reverse();
+  const vids = useSelector(state => state.videoreducer)?.data?.filter(q => q).reverse();
+  const navigation = useNavigate();
   // const vids=[
   //   {
   //     _id:1,
@@ -48,7 +51,7 @@ const Home = () => {
   //     description:"description of video 4"
   //   },
   // ]
-  const navlist=[
+  const navlist = [
     "All",
     "Python",
     "Java",
@@ -57,20 +60,28 @@ const Home = () => {
     "Science",
     "Animation",
     "Gaming",
-    "Comedy"
+    "Comedy",
+    "Chat"
   ];
+
+  const handleNav = (item) => {
+    if (item === "Chat") {
+      navigation('/chat')
+    }
+  }
+
   return (
     <div className="container_Pages_App">
-      <Leftsidebar/>
+      <Leftsidebar />
       <div className="container2_Pages_App">
         <div className="navigation_Home">
-          {navlist.map((m)=>{
-            return(
-              <p key={m} className='btn_nav_home'>{m}</p>
+          {navlist.map((m) => {
+            return (
+              <p key={m} className='btn_nav_home' onClick={() => handleNav(m)}>{m}</p>
             );
           })}
         </div>
-        <Showvideogrid vid={vids}/>
+        <Showvideogrid vid={vids} />
       </div>
     </div>
   )
